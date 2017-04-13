@@ -1,3 +1,5 @@
+![Finch logo](https://raw.githubusercontent.com/tomzorz/Finch/master/logo.png)
+
 # Finch
 A .net core library for nice console UI
 
