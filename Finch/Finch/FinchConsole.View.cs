@@ -18,9 +18,9 @@ namespace Finch
             return size;
         }
 
-        public void ScrollUp(int i) => Write($"{VT100.SequenceStarter}{i}{VT100.SequenceTerminatorViewportScrollUp}");
+        public void ScrollUp(int i) => Write($"{VT100.SequenceStarter}{i}{VT100.SequenceTerminatorViewportScrollDown}");
 
-        public void ScrollDown(int i) => Write($"{VT100.SequenceStarter}{i}{VT100.SequenceTerminatorViewportScrollDown}");
+        public void ScrollDown(int i) => Write($"{VT100.SequenceStarter}{i}{VT100.SequenceTerminatorViewportScrollUp}");
 
         public void FreezeLines(int top, int bottom)
         {
@@ -29,5 +29,7 @@ namespace Finch
             Write(VT100.SequenceStarter + string.Format(VT100.SequenceScrollingFormat, top + 1, size.x - bottom));
             SetCursorPosition(cPos);
         }
+
+        public void UnfreezeLines() => FreezeLines(0, 0);
     }
 }

@@ -12,6 +12,17 @@ namespace FinchDemos
         {
             var c = new FinchConsole();
 
+            c.ClearScreen();
+
+            ViewTests(c);
+
+            c.ClearScreen();
+            
+            Console.ReadKey();
+        }
+
+        private static void ViewTests(FinchConsole c)
+        {
             c.WriteLine("TEST FROZEN LINE 1");
             c.WriteLine("TEST FROZEN LINE 2");
 
@@ -26,13 +37,25 @@ namespace FinchDemos
 
             c.FreezeLines(2, 2);
 
-            foreach (var i in Enumerable.Range(1,1000))
+            foreach (var i in Enumerable.Range(1, 100))
             {
                 c.WriteLine(i.ToString());
+                Thread.Sleep(10);
+            }
+
+            for (var i = 0; i < 10; i++)
+            {
+                c.ScrollUp(1);
                 Thread.Sleep(20);
             }
 
-            Console.ReadKey();
+            for (var i = 0; i < 10; i++)
+            {
+                c.ScrollDown(1);
+                Thread.Sleep(20);
+            }
+
+            c.UnfreezeLines();
         }
     }
 }

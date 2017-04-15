@@ -29,8 +29,6 @@ namespace Finch
 
         public void SetCursorPosition(int x, int y) => Write(VT100.SequenceStarter + string.Format(VT100.SequenceCursorPositionFormat, x, y));
 
-        #region Position
-
         private (int, int) _quickSavePosition = (0, 0);
 
         public void QuickSaveCursorPosition() => _quickSavePosition = GetCursorPosition();
@@ -60,14 +58,8 @@ namespace Finch
 
         public void MoveCursorInColumn(int i) => Write($"{VT100.SequenceStarter}{i}{VT100.SequenceTerminatorCursorVerticalAbsolute}");
 
-        #endregion Position
-
-        #region Appearance
-
         public void SetCursorVisibility(bool b) => Write(b ? VT100.SequenceCursorShow : VT100.SequenceCursorHide);
 
         public void SetCursorBlinking(bool b) => Write(b ? VT100.SequenceCursorEnableBlinking : VT100.SequenceCursorDisableBlinking);
-
-        #endregion Appearance
     }
 }
