@@ -53,7 +53,9 @@ namespace Finch.Sequences
 
         public const string SequenceGraphicsRenditionDefault = "0";
 
-        public const string SequenceGraphicsRenditionBoldBright = "1";
+        //public const string SequenceGraphicsRenditionBright = "1";
+
+        //public const string SequenceGraphicsRenditionDim = "2";
 
         public const string SequenceGraphicsRenditionUnderline = "4";
 

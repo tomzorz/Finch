@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="FinchConsole.Buffer.cs" />
+    <None Include="FinchConsole.Screen.cs" />
   </ItemGroup>
 
   <ItemGroup>

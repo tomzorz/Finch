@@ -5,6 +5,19 @@ using Finch.Sequences;
 
 namespace Finch
 {
+    public enum EraseKind
+    {
+        Line,
+        Display
+    }
+
+    public enum EraseRegion
+    {
+        FromBeginningToCursor,
+        FromCursorToEnd,
+        FromBeginningToEnd
+    }
+
     public partial class FinchConsole
     {
         public void InsertSpace(int i) => Write($"{VT100.SequenceStarter}{i}{VT100.SequenceTerminatorModifyInsertSpaceRight}");

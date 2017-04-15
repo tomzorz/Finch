@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Finch.Exceptions
 {
-    public class FinchInitializationException : FinchException
+    public sealed class FinchInitializationException : FinchException
     {
         public FinchInitializationException(string message) : base(message)
         {

@@ -7,12 +7,12 @@ namespace Finch
 {
     public partial class FinchConsole
     {
-        public void SwitchToNewAlternateBuffer()
+        public void SwitchToNewAlternateScreen()
         {
             Write(VT100.SequenceBufferNewAlternate);
         }
 
-        public void SwitchToMainBuffer()
+        public void SwitchToMainScreen()
         {
             Write(VT100.SequenceBufferMain);
         }

@@ -58,8 +58,8 @@ namespace Finch
 
         public void MoveCursorInColumn(int i) => Write($"{VT100.SequenceStarter}{i}{VT100.SequenceTerminatorCursorVerticalAbsolute}");
 
-        public void SetCursorVisibility(bool b) => Write(b ? VT100.SequenceCursorShow : VT100.SequenceCursorHide);
+        public void SetCursorVisibility(bool isVisible) => Write(isVisible ? VT100.SequenceCursorShow : VT100.SequenceCursorHide);
 
-        public void SetCursorBlinking(bool b) => Write(b ? VT100.SequenceCursorEnableBlinking : VT100.SequenceCursorDisableBlinking);
+        public void SetCursorBlinking(bool isEnabled) => Write(isEnabled ? VT100.SequenceCursorEnableBlinking : VT100.SequenceCursorDisableBlinking);
     }
 }
