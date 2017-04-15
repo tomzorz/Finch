@@ -7,7 +7,7 @@ namespace Finch.Sequences
 
     // from https://msdn.microsoft.com/en-us/library/windows/desktop/mt638032(v=vs.85).aspx
 
-    public static class VT100
+    internal static class VT100
     {
         #region Parts
 
@@ -31,7 +31,7 @@ namespace Finch.Sequences
 
         public const string SequenceTerminatorCursorVerticalAbsolute = "d";
 
-        public const string SequenceTerminatorCursorPosition = "H";
+        public const string SequenceCursorPositionFormat = "{0};{1}H";
 
         public const string SequenceTerminatorViewportScrollUp = "S";
 
@@ -95,7 +95,7 @@ namespace Finch.Sequences
 
         public const string SequenceModifyEraseLine = "\x001b[2K";
 
-        public const string SequenceReportPosition = "\x001b[6n"; // ESC [ <r> ; <c> R Where <r> = cursor row and <c> = cursor column
+        public const string SequenceReportPosition = "\x001b[6n"; // ESC[<r>;<c>R  Where <r> = cursor row and <c> = cursor column
 
         public const string SequenceDesignateCharacterSetDECLineDrawing = "\x001b(0";
 

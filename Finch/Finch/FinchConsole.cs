@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using Finch.Sequences;
 
 namespace Finch
 {
-    public class FinchConsole
+    public partial class FinchConsole
     {
+        private readonly TextWriter _out;
+
         public FinchConsole()
         {
             Internals.EnsureInitialized();
+            _out = Console.Out;
         }
     }
 }
