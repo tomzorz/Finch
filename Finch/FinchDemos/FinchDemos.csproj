@@ -6,7 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="explosion.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="explosion.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ImageSharp" Version="1.0.0-alpha5-00071" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Finch\Finch.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="explosion.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

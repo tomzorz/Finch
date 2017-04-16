@@ -2,11 +2,14 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using Finch;
-using Finch.Data;
+using ImageSharp;
+using ImageSharp.Formats;
+using Color = Finch.Data.Color;
 
 namespace FinchDemos
 {
@@ -28,12 +31,15 @@ namespace FinchDemos
             ViewDemos(c);
             c.ClearScreen();
 
-            c.WriteLine("Press any key for the STYLE demo, please resize the window to be larger than 128x32...");
+            c.WriteLine("Press any key for the STYLE demo, please resize the window to be larger than 128x63...");
             c.WriteLine("... as the program won't let you continue until you do that :)");
-            do
+            var cs = c.GetScreenSize();
+            c.ReadKey();
+            while (cs.x < 63 || cs.y < 128)
             {
                 c.ReadKey();
-            } while (c.GetScreenSize().y < 128 && c.GetScreenSize().x < 32);
+                cs = c.GetScreenSize();
+            }
 
             c.ClearScreen();
             StyleDemos(c);
@@ -48,14 +54,14 @@ namespace FinchDemos
             c.SetCursorVisibility(false);
             var clsCounter = 0;
             var line = 1;
-            c.StartBufferedWriting();
-            for (var b = 0; b <= 255; b+=4)
+            c.StartBufferedWriting(); // I could buffer this per block instead of per line as well, I know
+            for (var b = 0; b <= 255; b += 4)
             {
-                for (var g = 0; g <= 255; g+=4)
+                for (var g = 0; g <= 255; g += 4)
                 {
-                    for (var r = 0; r <= 255; r+=4)
+                    for (var r = 0; r <= 255; r += 4)
                     {
-                        c.SetBackgroundColor(new Color((byte) r, (byte) g, (byte) b));
+                        c.SetBackgroundColor(new Color((byte)r, (byte)g, (byte)b));
                         c.Write(' ');
                         line += 1;
                         if (line <= 128) continue;
@@ -75,6 +81,37 @@ namespace FinchDemos
             }
             c.EndBufferedWriting();
             c.ResetStyles();
+
+            c.SetCursorPosition(1, 1);
+            var assembly = Assembly.GetEntryAssembly();
+            using (var rs = assembly.GetManifestResourceStream("FinchDemos.explosion.gif"))
+            {
+                using (var im = Image.Load(new Configuration(new GifFormat()), rs))
+                {
+                    using (var resized = im.Resize(128,63))
+                    {
+                        foreach (var resizedFrame in resized.Frames)
+                        {
+                            var fcc = 0;
+                            c.StartBufferedWriting();
+                            foreach (var resizedFramePixel in resizedFrame.Pixels)
+                            {
+                                c.SetBackgroundColor(new Color(resizedFramePixel.R, resizedFramePixel.G, resizedFramePixel.B));
+                                c.Write(' ');
+                                fcc += 1;
+                                if (fcc != 128) continue;
+                                c.MoveCursorDown();
+                                c.MoveCursorInLine(1);
+                                fcc = 0;
+                            }
+                            c.EndBufferedWriting();
+                            Thread.Sleep(16);
+                            c.SetCursorPosition(1, 1);
+                        }
+                    }
+                }
+            }          
+
             c.SetCursorVisibility(true);
         }
 

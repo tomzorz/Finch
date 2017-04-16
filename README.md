@@ -29,6 +29,24 @@ In order of implementation plans...
 * simple window management system
 * maybe basic xaml support? 
 
+## How to build
+
+There's only a single extra thing to do: the demo project requires [ImageSharp](http://imagesharp.net/), which is still in prerelease. Until it's stable it'll only be available from its [MyGet](https://www.myget.org/gallery/imagesharp) feed, which you need to add to NuGet as a new source.
+
+The feed URL: *https://www.myget.org/F/imagesharp/api/v3/index.json*
+
+Steps:
+
+* Right click on the solution / project
+* Select "Manage NuGet packages..."
+* Click on the little cogwheel (settings) icon in the top right
+* Hit the green plus button
+* Enter whatever as "name"
+* Copy/paste the feed url into the "source" field
+* Click on "Update" and on "OK"
+
+The demo project should build successfully after this.
+
 ## FAQ
 
 **NuGet?**
