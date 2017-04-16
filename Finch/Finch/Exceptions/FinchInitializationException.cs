@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Finch.Exceptions
+﻿namespace Finch.Exceptions
 {
     public sealed class FinchInitializationException : FinchException
     {

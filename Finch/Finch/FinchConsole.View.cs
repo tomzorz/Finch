@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using Finch.Sequences;
+﻿using Finch.Sequences;
 
 namespace Finch
 {

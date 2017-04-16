@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Finch.Sequences;
+﻿using Finch.Sequences;
 
 namespace Finch
 {

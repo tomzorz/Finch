@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Finch.Sequences
+﻿namespace Finch.Sequences
 {
 
     // from https://msdn.microsoft.com/en-us/library/windows/desktop/mt638032(v=vs.85).aspx
