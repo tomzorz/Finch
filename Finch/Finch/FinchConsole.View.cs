@@ -4,7 +4,7 @@ namespace Finch
 {
     public partial class FinchConsole
     {
-        public (int x, int y) GetScreenSize()
+        public (int x, int y) GetSize()
         {
             var cPos = GetCursorPosition();
             MoveCursorDown(999);
@@ -20,7 +20,7 @@ namespace Finch
 
         public void FreezeLines(int top, int bottom)
         {
-            var size = GetScreenSize();
+            var size = GetSize();
             var cPos = GetCursorPosition();
             Write(VT100.SequenceStarter + string.Format(VT100.SequenceScrollingFormat, top + 1, size.x - bottom));
             SetCursorPosition(cPos);

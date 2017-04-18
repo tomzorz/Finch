@@ -107,11 +107,13 @@ namespace Finch
             _buffer.Clear();
         }
 
-        public class DeferredWritingBlock : IDisposable
+        public BufferedWritingBlock CreateBufferedWritingBlock() => new BufferedWritingBlock(this);
+
+        public class BufferedWritingBlock : IDisposable
         {
             private readonly FinchConsole _console;
 
-            internal DeferredWritingBlock(FinchConsole console)
+            internal BufferedWritingBlock(FinchConsole console)
             {
                 _console = console;
                 _console.DeferCounter += 1;

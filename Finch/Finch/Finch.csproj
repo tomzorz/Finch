@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Include="FinchConsole.Screen.cs" />
+    <None Include="FrameBuffer\FrameBuffer.Rendering.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -28,12 +28,12 @@ namespace FinchDemos
 
             c.WriteLine("Press any key for the STYLE demo, please resize the window to be larger than 128x63...");
             c.WriteLine("... as the program won't let you continue until you do that :)");
-            var cs = c.GetScreenSize();
+            var cs = c.GetSize();
             c.ReadKey();
             while (cs.x < 63 || cs.y < 128)
             {
                 c.ReadKey();
-                cs = c.GetScreenSize();
+                cs = c.GetSize();
             }
 
             c.ClearScreen();
@@ -115,7 +115,7 @@ namespace FinchDemos
             c.WriteLine("TEST FROZEN LINE 1");
             c.WriteLine("TEST FROZEN LINE 2");
 
-            var size = c.GetScreenSize();
+            var size = c.GetSize();
 
             c.MoveCursorInColumn(size.x - 1);
 
