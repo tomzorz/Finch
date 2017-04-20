@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Finch.Data;
 using Finch.Exceptions;
 
 namespace Finch.FrameBuffer
 {
-    public partial class FrameBuffer
+    public abstract partial class FrameBuffer
     {
-        private readonly FinchConsole _console;
-        private readonly Character _clearCharacter;
+        protected readonly FinchConsole Console;
+        protected readonly Character ClearCharacter;
         private readonly string _id;
         private readonly (int x1, int x2, int y1, int y2) _pos;
         private int _frameTimimg;
-        private readonly List<Character[,]> _frames;
-        private Character[,] _renderedState;
-        private bool _isPlaying;
+        protected readonly List<Character[,]> Frames;
+        protected Character[,] RenderedState;
 
         /// <summary>
         /// The current frametime
@@ -26,23 +24,25 @@ namespace Finch.FrameBuffer
         /// <summary>
         /// The current frame count
         /// </summary>
-        public int FrameCount => _frames.Count;
+        public int FrameCount => Frames.Count;
 
         /// <summary>
         /// Returns whether the FrameBuffer is playing it's contents
         /// </summary>
-        public bool IsPlaying => _isPlaying;
+        public bool IsPlaying { get; private set; }
 
-        internal FrameBuffer(FinchConsole console, Character clearCharacter, string id, (int x1, int x2, int y1, int y2) pos)
+        protected FrameBuffer(FinchConsole console, Character clearCharacter, string id, (int x1, int x2, int y1, int y2) pos)
         {
-            _console = console;
-            _clearCharacter = clearCharacter;
+            Console = console;
+            ClearCharacter = clearCharacter;
             _id = id;
             _pos = pos;
-            _frames = new List<Character[,]> {new Character[pos.x2 - pos.x1, pos.y2 - pos.y1]};
-            _renderedState = new Character[pos.x2 - pos.x1, pos.y2 - pos.y1];
-            _isPlaying = false;
+            Frames = new List<Character[,]> {new Character[pos.x2 - pos.x1, pos.y2 - pos.y1]};
+            RenderedState = new Character[pos.x2 - pos.x1, pos.y2 - pos.y1];
+            IsPlaying = false;
         }
+
+        protected abstract (int height, int width) GetLogicalSize();
 
         /// <summary>
         /// Set frame timing
@@ -55,18 +55,20 @@ namespace Finch.FrameBuffer
         /// </summary>
         public void Render()
         {
-            if(_isPlaying) return;
+            if(IsPlaying) return;
             RenderInternal();
         }
+
+        protected abstract void RenderInternal();
 
         /// <summary>
         /// Continously render the frames with the set timing
         /// </summary>
         public void Play()
         {
-            if(_isPlaying) return;
+            if(IsPlaying) return;
             // TODO start playing
-            _isPlaying = true;
+            IsPlaying = true;
         }
 
         /// <summary>
@@ -74,9 +76,9 @@ namespace Finch.FrameBuffer
         /// </summary>
         public void Stop()
         {
-            if (!_isPlaying) return;
+            if (!IsPlaying) return;
             // TODO stop playing
-            _isPlaying = false;
+            IsPlaying = false;
         }
 
         /// <summary>
@@ -86,16 +88,16 @@ namespace Finch.FrameBuffer
         /// <remarks>If there're going to be less frames than before the last ones will be removed. When adding new frames, they'll be added at the end and cleared.</remarks>
         public void SetFrameCount(int count)
         {
-            if(count == _frames.Count) return;
+            if(count == Frames.Count) return;
             if (count < 1) throw new FinchFrameBufferException("A FrameBuffer must have at least one frame!");
-            if (count > _frames.Count)
+            if (count > Frames.Count)
             {
-                while (count != _frames.Count) _frames.RemoveAt(_frames.Count - 1);
+                while (count != Frames.Count) Frames.RemoveAt(Frames.Count - 1);
             }
             else
             {
-                var diff = count - _frames.Count;
-                for (var i = 0; i < diff; i++) _frames.Add(new Character[_pos.x2 - _pos.x1, _pos.y2 - _pos.y1]);
+                var diff = count - Frames.Count;
+                for (var i = 0; i < diff; i++) Frames.Add(new Character[_pos.x2 - _pos.x1, _pos.y2 - _pos.y1]);
             }
         }
     }
