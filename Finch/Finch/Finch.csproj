@@ -6,11 +6,10 @@
 
   <ItemGroup>
     <None Include="FinchConsole.Screen.cs" />
-    <None Include="FrameBuffer\FrameBuffer.Rendering.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ValueTuple" Version="4.3.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
 
 </Project>

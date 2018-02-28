@@ -2,8 +2,10 @@
 using System.Reflection;
 using System.Threading;
 using Finch;
-using ImageSharp;
-using ImageSharp.Formats;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Gif;
+using SixLabors.ImageSharp.Processing;
 using Color = Finch.Data.Color;
 
 namespace FinchDemos
@@ -81,28 +83,26 @@ namespace FinchDemos
             var assembly = Assembly.GetEntryAssembly();
             using (var rs = assembly.GetManifestResourceStream("FinchDemos.explosion.gif"))
             {
-                using (var im = Image.Load(new Configuration(new GifFormat()), rs))
+                using (var im = Image.Load(rs, new GifDecoder()))
                 {
-                    using (var resized = im.Resize(128,63))
+                    im.Mutate(x => x.Resize(128, 63));
+                    foreach (var resizedFrame in im.Frames)
                     {
-                        foreach (var resizedFrame in resized.Frames)
+                        c.StartBufferedWriting();
+                        for (var i = 0; i < resizedFrame.Height; i++)
                         {
-                            var fcc = 0;
-                            c.StartBufferedWriting();
-                            foreach (var resizedFramePixel in resizedFrame.Pixels)
+                            for (var j = 0; j < resizedFrame.Width; j++)
                             {
+                                var resizedFramePixel = resizedFrame[j, i];
                                 c.SetBackgroundColor(new Color(resizedFramePixel.R, resizedFramePixel.G, resizedFramePixel.B));
                                 c.Write(' ');
-                                fcc += 1;
-                                if (fcc != 128) continue;
-                                c.MoveCursorDown();
-                                c.MoveCursorInLine(1);
-                                fcc = 0;
                             }
-                            c.EndBufferedWriting();
-                            Thread.Sleep(16);
-                            c.SetCursorPosition(1, 1);
+                            c.MoveCursorDown();
+                            c.MoveCursorInLine(1);
                         }
+                        c.EndBufferedWriting();
+                        Thread.Sleep(16);
+                        c.SetCursorPosition(1, 1);
                     }
                 }
             }          
