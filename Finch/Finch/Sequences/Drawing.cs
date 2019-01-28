@@ -1,4 +1,8 @@
-﻿namespace Finch.Sequences
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Finch.Sequences
 {
     public static class Drawing
     {

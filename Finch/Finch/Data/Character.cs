@@ -1,4 +1,8 @@
-﻿namespace Finch.Data
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Finch.Data
 {
     public sealed class Character
     {

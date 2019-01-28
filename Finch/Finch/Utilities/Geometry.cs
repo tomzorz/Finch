@@ -1,4 +1,8 @@
-﻿namespace Finch.Utilities
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Finch.Utilities
 {
     public static class Geometry
     {
