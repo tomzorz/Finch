@@ -21,26 +21,26 @@ namespace FinchDemos
             c.WriteLine("Welcome to the Finch Demo app!");
             c.WriteLine();
 
-            c.Write("Press any key for the VIEW demo...");
-            c.ReadKey();
+            //c.Write("Press any key for the VIEW demo...");
+            //c.ReadKey();
 
-            c.ClearScreen();
-            ViewDemos(c);
-            c.ClearScreen();
+            //c.ClearScreen();
+            //ViewDemos(c);
+            //c.ClearScreen();
 
-            c.WriteLine("Press any key for the STYLE demo, please resize the window to be larger than 128x63...");
-            c.WriteLine("... as the program won't let you continue until you do that :)");
-            var cs = c.GetSize();
-            c.ReadKey();
-            while (cs.x < 63 || cs.y < 128)
-            {
-                c.ReadKey();
-                cs = c.GetSize();
-            }
+            //c.WriteLine("Press any key for the STYLE demo, please resize the window to be larger than 128x63...");
+            //c.WriteLine("... as the program won't let you continue until you do that :)");
+            //var cs = c.GetSize();
+            //c.ReadKey();
+            //while (cs.x < 63 || cs.y < 128)
+            //{
+            //    c.ReadKey();
+            //    cs = c.GetSize();
+            //}
 
-            c.ClearScreen();
-            StyleDemos(c);
-            c.ClearScreen();
+            //c.ClearScreen();
+            //StyleDemos(c);
+            //c.ClearScreen();
 
             c.Write("Press any key to quit...");
             c.ReadKey();

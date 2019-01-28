@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Finch.Data
+﻿namespace Finch.Data
 {
-    public class Character
+    public sealed class Character
     {
         public Color Foreground { get; set; }
 
